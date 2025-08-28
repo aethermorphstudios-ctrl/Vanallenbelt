@@ -1,213 +1,421 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Zodiac Starmap Post</title>
-  <style>
-    /* === Customization Variables === */
-    :root {
-      --accent: #ff99ff;
-      --bg-gradient: radial-gradient(circle at center, #0b0033, #000);
-      --star-color: #ffffff;
-      --headline-size: 64px;
-      --subheadline-size: 32px;
-      --caption-size: 28px;
-      --cta-size: 28px;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Zodiac Starmap Post Generator — Download PNG</title>
+<style>
+  :root{
+    --panel-w:360px;
+    --accent: #ff66d6;
+    --bg1: #050014;
+    --bg2: #0b1530;
+    --star: #fff6d8;
+    --card-radius:28px;
+  }
+  html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; background: radial-gradient(800px 400px at 10% 10%, rgba(255,255,255,0.02), transparent), linear-gradient(180deg,var(--bg1),var(--bg2)); color:#d6d6e0}
+  .app{display:flex;gap:18px;padding:18px;align-items:flex-start;justify-content:center;}
+  /* Controls */
+  .panel{width:var(--panel-w); background: rgba(255,255,255,0.02); border-radius:12px; padding:12px; box-shadow:0 8px 30px rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.03)}
+  .panel h3{margin:6px 0;color:var(--accent)}
+  .field{margin-bottom:10px}
+  label{display:block;font-size:13px;color:rgba(255,255,255,0.75);margin-bottom:6px}
+  input[type="text"], textarea, select{width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.01);color:#fff;font-size:14px;outline:none}
+  textarea{min-height:70px;resize:vertical}
+  .row{display:flex;gap:8px}
+  button, .btn{cursor:pointer;border-radius:10px;padding:8px 12px;border:none}
+  .primary{background:var(--accent);color:#0b0016;font-weight:700}
+  .ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+  .theme-row{display:flex;gap:8px;margin-bottom:8px}
+  .theme-btn{flex:1;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#fff}
+  .small{font-size:13px;padding:6px 8px}
+  .note{font-size:12px;color:rgba(255,255,255,0.55);margin-top:8px}
 
-    /* === Reset & Center === */
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #000;
-      font-family: Arial, sans-serif;
-    }
+  /* Preview container - center & scale safely */
+  .previewWrap{width:760px;display:flex;align-items:center;justify-content:center}
+  .previewFrame{width:540px;height:540px;border-radius:14px;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 50px rgba(0,0,0,0.6);background:transparent}
+  /* Put SVG exactly half scale for editing (we render 1080 but show 540 to fit) */
+  svg#postSVG{width:540px;height:540px;display:block;border-radius:14px;overflow:visible}
 
-    /* === Main Post (Instagram 1080×1080) === */
-    .post {
-      width: 1080px;
-      height: 1080px;
-      background: var(--bg-gradient);
-      border-radius: 20px;
-      box-shadow: 0 0 40px rgba(200, 100, 255, 0.4);
-      position: relative;
-      overflow: hidden;
-      color: #fff;
-      padding: 20px;
-      box-sizing: border-box;
-      animation: fadeIn 1s ease-in;
-    }
-
-    /* Auto scale down for small screens */
-    .wrapper {
-      transform: scale(1);
-      transform-origin: center;
-    }
-    @media (max-width: 1200px) {
-      .wrapper {
-        transform: scale(0.6);
-      }
-    }
-    @media (max-width: 800px) {
-      .wrapper {
-        transform: scale(0.4);
-      }
-    }
-
-    /* === Header === */
-    .header {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-    .avatar {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #ffccff, #660066);
-      box-shadow: 0 0 15px #ff99ff;
-    }
-    .username {
-      font-weight: bold;
-      font-size: 32px;
-    }
-
-    /* === Hero Text === */
-    .hero {
-      margin-top: 100px;
-      text-align: center;
-      font-size: var(--headline-size);
-      font-weight: bold;
-    }
-    .sub {
-      text-align: center;
-      font-size: var(--subheadline-size);
-      opacity: 0.8;
-      margin-top: 10px;
-    }
-
-    /* === Badge === */
-    .badge {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: var(--accent);
-      color: #000;
-      font-weight: bold;
-      padding: 8px 16px;
-      border-radius: 30px;
-      font-size: 24px;
-      box-shadow: 0 0 10px var(--accent);
-    }
-
-    /* === Caption === */
-    .caption {
-      position: absolute;
-      bottom: 120px;
-      left: 50%;
-      transform: translateX(-50%);
-      text-align: center;
-      width: 90%;
-      font-size: var(--caption-size);
-      line-height: 1.4em;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-    }
-
-    /* === CTA Button === */
-    .cta {
-      position: absolute;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(5px);
-      border-radius: 12px;
-      padding: 12px 24px;
-      font-size: var(--cta-size);
-      cursor: pointer;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-      transition: 0.3s;
-    }
-    .cta:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    /* === Twinkling Stars BG === */
-    .star {
-      position: absolute;
-      background: var(--star-color);
-      border-radius: 50%;
-      opacity: 0.8;
-      animation: twinkle 2s infinite alternate;
-    }
-    @keyframes twinkle {
-      from { opacity: 0.2; }
-      to { opacity: 1; }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95);}
-      to { opacity: 1; transform: scale(1);}
-    }
-
-    /* === Export Button (outside post) === */
-    .export-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      border: none;
-      border-radius: 8px;
-      background: var(--accent);
-      color: #000;
-      font-weight: bold;
-      box-shadow: 0 0 10px var(--accent);
-    }
-  </style>
+  /* small utilities */
+  .controls-foot{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+</style>
 </head>
 <body>
-  <div class="wrapper">
-    <div id="post" class="post">
-      <div class="header">
-        <div class="avatar"></div>
-        <div class="username">@The_Vanallenbelt</div>
+  <div class="app" role="application" aria-label="Zodiac starmap post generator app">
+    <div class="panel" aria-label="Editor panel">
+      <h3>Zodiac Starmap — Editor</h3>
+
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" type="text" value="@The_Vanallenbelt" />
       </div>
-      <div class="hero">Your Personal Zodiac Starmap ✨</div>
-      <div class="sub">A snapshot of the stars on your special day</div>
-      <div class="badge">NEW</div>
-      <div class="caption">
-        Did you know? Jupiter shields Earth by pulling away asteroids 🌌
+
+      <div class="field">
+        <label for="headline">Headline (single-line)</label>
+        <input id="headline" type="text" value="Your Personal Zodiac Starmap ✨" />
       </div>
-      <div class="cta">Get Your Starmap</div>
-      <!-- Stars -->
-      <div class="star" style="top:50px; left:200px; width:3px; height:3px;"></div>
-      <div class="star" style="top:400px; left:600px; width:2px; height:2px;"></div>
-      <div class="star" style="top:700px; left:300px; width:4px; height:4px;"></div>
-      <div class="star" style="top:900px; left:800px; width:2px; height:2px;"></div>
+
+      <div class="field">
+        <label for="subheadline">Subheadline</label>
+        <input id="subheadline" type="text" value="A snapshot of the stars on your special day" />
+      </div>
+
+      <div class="field">
+        <label for="caption">Caption / Fact (2 lines shown)</label>
+        <textarea id="caption">Did you know? Jupiter shields Earth by pulling away asteroids 🌌</textarea>
+      </div>
+
+      <div class="row" style="margin-bottom:8px">
+        <div style="flex:1" class="field">
+          <label for="badge">Badge</label>
+          <input id="badge" type="text" value="NEW" />
+        </div>
+        <div style="width:140px" class="field">
+          <label for="cta">CTA</label>
+          <input id="cta" type="text" value="Get Your Starmap" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Preset Themes</label>
+        <div class="theme-row">
+          <button class="theme-btn" id="presetGalaxy">Galaxy</button>
+          <button class="theme-btn" id="presetMystic">Mystic</button>
+          <button class="theme-btn" id="presetGolden">Golden</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Options</label>
+        <div class="row">
+          <label style="display:flex;gap:6px;align-items:center"><input id="showLabels" type="checkbox" checked/> <span style="font-size:13px">Labels</span></label>
+          <label style="display:flex;gap:6px;align-items:center"><input id="showLines" type="checkbox" checked/> <span style="font-size:13px">Constellation lines</span></label>
+        </div>
+      </div>
+
+      <div style="margin-top:6px">
+        <label>Export</label>
+        <div class="controls-foot">
+          <button id="download1080" class="btn primary">Download PNG (1080)</button>
+          <button id="download3000" class="btn" style="background:#ffd389;color:#1b1200;font-weight:700">Download PNG (3000)</button>
+          <button id="openTab" class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.06)">Open 1080 in new tab</button>
+        </div>
+        <div class="note">Direct download works in modern browsers. If blocked, use "Open in new tab" then right-click & save.</div>
+      </div>
+
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,0.04);margin:12px 0" />
+
+      <div style="font-size:13px;color:rgba(255,255,255,0.6)">
+        <strong>How it works</strong>
+        <p style="margin:6px 0 0 0">The post is an SVG (1080×1080). Export serializes the SVG and draws it on a canvas at requested resolution, then downloads a PNG.</p>
+      </div>
+    </div>
+
+    <div class="previewWrap" aria-hidden="false">
+      <div class="previewFrame" role="img" aria-label="Preview of zodiac starmap post">
+        <!-- SVG post (full 1080x1080 viewBox) -->
+        <svg id="postSVG" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Zodiac starmap image">
+          <defs>
+            <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="2.6" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <radialGradient id="bgGrad" cx="50%" cy="30%" r="80%">
+              <stop offset="0%" stop-color="#0b1130" stop-opacity="1"/>
+              <stop offset="60%" stop-color="#060018" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#000000" stop-opacity="1"/>
+            </radialGradient>
+          </defs>
+
+          <!-- Background -->
+          <rect x="0" y="0" width="1080" height="1080" rx="28" ry="28" fill="url(#bgGrad)"></rect>
+          <g id="decorStars"></g>
+
+          <!-- starfield layer (points drawn by JS) -->
+          <g id="starsLayer"></g>
+
+          <!-- constellation lines layer -->
+          <g id="linesLayer" stroke="rgba(255,255,255,0.12)" stroke-width="1.2" fill="none" stroke-linecap="round"></g>
+
+          <!-- ecliptic arc -->
+          <g id="eclipticLayer"></g>
+
+          <!-- overlays -->
+          <g id="ui">
+            <!-- Avatar -->
+            <g transform="translate(80,90)">
+              <circle cx="0" cy="0" r="54" fill="rgba(255,255,255,0.03)"></circle>
+              <circle cx="0" cy="0" r="38" fill="#111" stroke="rgba(255,255,255,0.06)" stroke-width="2"></circle>
+              <text id="avatarInitial" x="0" y="9" font-family="system-ui,Segoe UI,Roboto,Arial" font-size="22" text-anchor="middle" fill="white" font-weight="700">A</text>
+            </g>
+
+            <!-- Username -->
+            <text id="svgUsername" x="150" y="95" font-family="system-ui,Segoe UI,Roboto,Arial" font-size="20" font-weight="700" fill="#ffffff">@The_Vanallenbelt</text>
+
+            <!-- Badge -->
+            <g id="badgeGroup" transform="translate(880,90)">
+              <rect id="badgeRect" x="-6" y="-22" rx="12" ry="12" width="140" height="44" fill="rgba(255,255,255,0.06)"></rect>
+              <text id="svgBadge" x="64" y="6" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">NEW</text>
+            </g>
+
+            <!-- Headline -->
+            <text id="svgHeadline" x="540" y="360" text-anchor="middle" font-family="system-ui,Segoe UI,Roboto,Arial" font-size="44" font-weight="800" fill="#ffffff">Your Personal Zodiac Starmap ✨</text>
+
+            <!-- Subheadline -->
+            <text id="svgSubheadline" x="540" y="395" text-anchor="middle" font-family="system-ui,Segoe UI,Roboto,Arial" font-size="18" fill="rgba(255,255,255,0.92)">A snapshot of the stars on your special day</text>
+
+            <!-- Caption box -->
+            <g transform="translate(80,900)" id="captionGroup">
+              <rect x="-16" y="-56" rx="16" ry="16" width="920" height="72" fill="rgba(0,0,0,0.40)"></rect>
+              <text id="svgCaption" x="8" y="-18" font-family="system-ui,Segoe UI,Roboto,Arial" font-size="20" fill="#fff">Did you know? Jupiter shields Earth by pulling away asteroids 🌌</text>
+            </g>
+
+            <!-- CTA -->
+            <g transform="translate(540,980)" id="ctaGroup">
+              <rect x="-140" y="-36" rx="20" ry="20" width="280" height="60" fill="rgba(255,255,255,0.06)"></rect>
+              <text id="svgCTA" x="0" y="-10" text-anchor="middle" font-family="system-ui,Segoe UI,Roboto,Arial" font-size="20" font-weight="800" fill="#fff">Get Your Starmap</text>
+            </g>
+          </g>
+        </svg>
+      </div>
     </div>
   </div>
 
-  <button class="export-btn" onclick="exportImage()">Export PNG</button>
+<script>
+/* ----------------------
+   Simple sample star catalog (small) — expandable
+   RA hours / Dec degrees approximations used just for viz
+   ---------------------- */
+const STAR_CATALOG = [
+  {name:"Sirius", ra:6.7525, dec:-16.7161, mag:-1.46},
+  {name:"Canopus", ra:6.3992, dec:-52.6957, mag:-0.72},
+  {name:"Arcturus", ra:14.261, dec:19.1825, mag:-0.05},
+  {name:"Vega", ra:18.6156, dec:38.7837, mag:0.03},
+  {name:"Capella", ra:5.2782, dec:45.9979, mag:0.08},
+  {name:"Rigel", ra:5.2423, dec:-8.2016, mag:0.18},
+  {name:"Betelgeuse", ra:5.9195, dec:7.4071, mag:0.5},
+  {name:"Altair", ra:19.8464, dec:8.8683, mag:0.76},
+  {name:"Aldebaran", ra:4.5987, dec:16.5093, mag:0.85},
+  {name:"Antares", ra:16.4901, dec:-26.432, mag:1.06}
+];
 
-  <script>
-    /* Export logic: open post in new tab for save-as */
-    function exportImage() {
-      const node = document.getElementById("post");
-      const w = window.open("", "_blank");
-      w.document.write("<html><head><title>Export</title></head><body style='margin:0;display:flex;justify-content:center;align-items:center;background:#000;'>");
-      w.document.write(node.outerHTML);
-      w.document.write("</body></html>");
-      w.document.close();
-      alert("Right click the image and Save As PNG.");
+/* Basic projection: map RA/Dec to 2D for demonstration (not precision-grade) */
+function raDecToXY(raHours, decDeg, centerRA=0, centerDec=30, fov=80){
+  // convert to radians
+  const ra = raHours * Math.PI/12;
+  const dec = decDeg * Math.PI/180;
+  const cra = centerRA * Math.PI/12;
+  const cdec = centerDec * Math.PI/180;
+  // simple vector dot for angle
+  const vx = Math.cos(dec)*Math.cos(ra);
+  const vy = Math.cos(dec)*Math.sin(ra);
+  const vz = Math.sin(dec);
+  const vcx = Math.cos(cdec)*Math.cos(cra);
+  const vcy = Math.cos(cdec)*Math.sin(cra);
+  const vcz = Math.sin(cdec);
+  const dot = vx*vcx + vy*vcy + vz*vcz;
+  const ang = Math.acos(Math.max(-1,Math.min(1,dot)));
+  const angDeg = ang*180/Math.PI;
+  if(angDeg > fov) return null;
+  // local axes
+  const up = {x:0,y:0,z:1};
+  let east = {x: up.y*vcz - up.z*vcy, y: up.z*vcx - up.x*vcz, z: up.x*vcy - up.y*vcx};
+  const en = Math.hypot(east.x,east.y,east.z) || 1;
+  east.x/=en; east.y/=en; east.z/=en;
+  let north = {x: vcx*east.z - vcz*east.y, y: vcz*east.x - vcx*east.z, z: vcx*east.y - vcy*east.x};
+  const x = vx*east.x + vy*east.y + vz*east.z;
+  const y = vx*north.x + vy*north.y + vz*north.z;
+  const r = (ang / (fov * Math.PI/180)) * 420; // px radius
+  const sx = 540 + r * x;
+  const sy = 540 - r * y;
+  return {x: sx, y: sy, angDeg};
+}
+
+/* Render stars and simple constellation demo */
+function renderStars(){
+  const starsLayer = document.getElementById('starsLayer');
+  const linesLayer = document.getElementById('linesLayer');
+  const labelsLayer = document.getElementById('eclipticLayer'); // reuse small group
+  // clear
+  starsLayer.innerHTML = ''; linesLayer.innerHTML = ''; labelsLayer.innerHTML = '';
+
+  // decorative random small stars (for background)
+  for(let i=0;i<140;i++){
+    const cx = Math.random()*1080;
+    const cy = Math.random()*1080;
+    const r = Math.random()*1.6 + 0.3;
+    const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('cx',cx); c.setAttribute('cy',cy); c.setAttribute('r',r);
+    c.setAttribute('fill','white'); c.setAttribute('opacity', (Math.random()*0.6+0.08).toString());
+    starsLayer.appendChild(c);
+  }
+
+  const fov = 80;
+  const centerRA = 0.0, centerDec = 30.0;
+  const projected = [];
+  for(const s of STAR_CATALOG){
+    const p = raDecToXY(s.ra, s.dec, centerRA, centerDec, fov);
+    if(!p) continue;
+    projected.push({s,p});
+    const size = Math.max(1.2, 6 - (s.mag||2));
+    const circ = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    circ.setAttribute('cx', p.x); circ.setAttribute('cy', p.y); circ.setAttribute('r', size);
+    circ.setAttribute('fill','white'); circ.setAttribute('opacity', Math.max(0.45, 1 - ((s.mag||2)/6)));
+    circ.setAttribute('filter','url(#softGlow)');
+    starsLayer.appendChild(circ);
+
+    // label if requested and bright
+    if(document.getElementById('showLabels').checked && (s.mag||9) <= 1.2){
+      const t = document.createElementNS('http://www.w3.org/2000/svg','text');
+      t.setAttribute('x', p.x + size + 6); t.setAttribute('y', p.y + 4);
+      t.setAttribute('font-size','12'); t.setAttribute('fill','rgba(255,255,255,0.9)');
+      t.setAttribute('font-family','system-ui,Segoe UI,Roboto,Arial');
+      t.textContent = s.name;
+      starsLayer.appendChild(t);
     }
-  </script>
+  }
+
+  // simple connecting lines (demo-ish) if toggled
+  if(document.getElementById('showLines').checked && projected.length>1){
+    for(let i=0;i<projected.length-1;i++){
+      const a = projected[i].p, b = projected[i+1].p;
+      const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+      path.setAttribute('d', `M ${a.x} ${a.y} L ${b.x} ${b.y}`);
+      path.setAttribute('stroke','rgba(255,255,255,0.09)'); path.setAttribute('stroke-width','1.2'); path.setAttribute('fill','none');
+      linesLayer.appendChild(path);
+    }
+  }
+}
+
+/* Update visible SVG overlay texts from inputs */
+function updateText(){
+  const u = document.getElementById('username').value || '@The_Vanallenbelt';
+  const h = document.getElementById('headline').value || 'Your Personal Zodiac Starmap ✨';
+  const sh = document.getElementById('subheadline').value || '';
+  let cap = document.getElementById('caption').value || '';
+  // clamp caption length (visual 2 lines)
+  if(cap.length>140) cap = cap.slice(0,137)+'...';
+  const badge = document.getElementById('badge').value || '';
+  const cta = document.getElementById('cta').value || 'Get Your Starmap';
+
+  document.getElementById('svgUsername').textContent = u;
+  document.getElementById('svgHeadline').textContent = h;
+  document.getElementById('svgSubheadline').textContent = sh;
+  document.getElementById('svgCaption').textContent = cap;
+  document.getElementById('svgBadge').textContent = badge;
+  document.getElementById('svgCTA').textContent = cta;
+  document.getElementById('avatarInitial').textContent = (u.trim().replace('@','').charAt(0) || 'A').toUpperCase();
+}
+
+/* Theme presets */
+function applyTheme(name){
+  const body = document.documentElement;
+  if(name==='galaxy'){
+    document.documentElement.style.setProperty('--bg1','#050014');
+    document.documentElement.style.setProperty('--bg2','#1b0536');
+    document.documentElement.style.setProperty('--accent','#e84cff');
+  } else if(name==='mystic'){
+    document.documentElement.style.setProperty('--bg1','#001426');
+    document.documentElement.style.setProperty('--bg2','#002b4a');
+    document.documentElement.style.setProperty('--accent','#00e5ff');
+  } else if(name==='golden'){
+    document.documentElement.style.setProperty('--bg1','#070707');
+    document.documentElement.style.setProperty('--bg2','#1a1410');
+    document.documentElement.style.setProperty('--accent','#f5c85a');
+  }
+  // also update SVG background (radial gradient stops)
+  const svg = document.getElementById('postSVG');
+  const stops = svg.querySelectorAll('radialGradient#bgGrad stop');
+  // not perfect mapping — keep as-is visually; main color influence comes from page BG.
+}
+
+/* ---------------- Export Utilities ----------------
+   Serialize the SVG, create an image, draw on canvas at requested px, download PNG.
+   This approach keeps text crisp because SVG renders to canvas.
+--------------------------------------------------*/
+function svgToDataUrl(svgEl){
+  // clone
+  const clone = svgEl.cloneNode(true);
+  // inline computed styles for any elements that rely on CSS variables / external styles
+  // For simplicity: set background rect fill to computed body background gradient color if needed.
+  // Serialize
+  const serializer = new XMLSerializer();
+  let svgStr = serializer.serializeToString(clone);
+  if(!svgStr.match(/^<\?xml/)) svgStr = '<?xml version="1.0" standalone="no"?>\n' + svgStr;
+  return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgStr);
+}
+
+async function downloadSvgAsPng(svgEl, sizePx=1080, filename='zodiac_starmap.png'){
+  try{
+    const dataUrl = svgToDataUrl(svgEl);
+    const img = new Image();
+    img.src = dataUrl;
+    await new Promise((res, rej)=>{
+      img.onload = ()=>res();
+      img.onerror = (e)=> rej(e);
+    });
+    const canvas = document.createElement('canvas');
+    canvas.width = sizePx; canvas.height = sizePx;
+    const ctx = canvas.getContext('2d');
+    // Fill with black (or prefer computed page bg)
+    ctx.fillStyle = '#000'; ctx.fillRect(0,0,canvas.width,canvas.height);
+    // draw
+    // drawImage will scale SVG image to canvas size
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    // toBlob and download
+    return new Promise((res)=>{
+      canvas.toBlob((blob)=>{
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        res(true);
+      }, 'image/png', 0.95);
+    });
+  } catch(err){
+    console.error('Export error', err);
+    return false;
+  }
+}
+
+/* ---------- Hook up events ---------- */
+document.querySelectorAll('#username,#headline,#subheadline,#caption,#badge,#cta').forEach(el=>{
+  el.addEventListener('input', ()=>{
+    updateText();
+  });
+});
+document.getElementById('showLabels').addEventListener('change', renderStars);
+document.getElementById('showLines').addEventListener('change', renderStars);
+
+document.getElementById('presetGalaxy').addEventListener('click', ()=>{ applyTheme('galaxy'); });
+document.getElementById('presetMystic').addEventListener('click', ()=>{ applyTheme('mystic'); });
+document.getElementById('presetGolden').addEventListener('click', ()=>{ applyTheme('golden'); });
+
+document.getElementById('download1080').addEventListener('click', async ()=>{
+  const ok = await downloadSvgAsPng(document.getElementById('postSVG'), 1080, 'zodiac_starmap_1080.png');
+  if(!ok) { alert('Export failed — try "Open 1080 in new tab" fallback.'); openInNewTab(1080); }
+});
+document.getElementById('download3000').addEventListener('click', async ()=>{
+  const ok = await downloadSvgAsPng(document.getElementById('postSVG'), 3000, 'zodiac_starmap_3000.png');
+  if(!ok) { alert('High-res export failed — try fallback.'); openInNewTab(3000); }
+});
+document.getElementById('openTab').addEventListener('click', ()=> openInNewTab(1080));
+
+function openInNewTab(size=1080){
+  const svgEl = document.getElementById('postSVG');
+  const url = svgToDataUrl(svgEl);
+  const w = window.open("");
+  if(!w){ alert('Popup blocked. Allow popups or use the Download button.'); return; }
+  const html = `<!doctype html><html><head><title>Export - ${size}px</title></head><body style="margin:0;background:#000;display:flex;align-items:center;justify-content:center;height:100vh;"><img src="${url}" style="width:${size}px;height:${size}px"/></body></html>`;
+  w.document.open(); w.document.write(html); w.document.close();
+}
+
+/* Initial draw */
+updateText();
+renderStars();
+</script>
 </body>
 </html>
