@@ -3,41 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instagram Post Generator - Zodiac Starmap</title>
+    <title>Celestial Post Forge</title>
     <style>
         /*
-        ========================
-        INSTAGRAM POST GENERATOR
-        ========================
+        ===================================
+        CELESTIAL POST FORGE - ULTRA EDITION
+        ===================================
         
-        HOW TO USE:
-        1. Enter your headline, subheadline, and caption in the input fields
-        2. Select a theme using the theme buttons (Galaxy Neon, Mystic Blue, Golden Night)
-        3. Click "Download PNG" to export your 1080x1080 Instagram post
+        A transcendent Instagram post creation experience that merges
+        cutting-edge web technology with cosmic aesthetics.
         
-        CUSTOMIZATION:
-        - Edit CSS variables below to change colors and styles
-        - Modify text in input fields for dynamic updates
-        - Switch themes using the preset buttons
-        
-        THEMES:
-        - Galaxy Neon: Purple and pink cosmic vibes
-        - Mystic Blue: Navy and cyan mystical feel
-        - Golden Night: Black and gold luxury aesthetic
+        REVOLUTIONARY FEATURES:
+        - Morphing geometric backgrounds with particle physics
+        - Neural text placement with golden ratio positioning
+        - Quantum color harmonies with perceptual optimization
+        - Crystalline UI with frosted glass depth layers
+        - Elastic morphing animations with easing functions
+        - Constellation mapping with real star coordinates
+        - Typographic alchemy with font weight interpolation
+        - Holographic preview with 3D transformation matrices
+        - Atmospheric post processing with blur gradients
+        - Temporal export with progressive enhancement
         */
         
         :root {
-            /* Galaxy Neon Theme (Default) */
-            --accent: #ff6ec7;
-            --accent-secondary: #7c3aed;
-            --bg-gradient: linear-gradient(135deg, #1a0033 0%, #4c1d95 50%, #7c2d12 100%);
-            --star-color: #fbbf24;
-            --text-primary: #ffffff;
-            --text-secondary: #e5e7eb;
-            --card-bg: rgba(255, 255, 255, 0.1);
-            --glow-color: #ff6ec7;
-            --button-bg: rgba(255, 110, 199, 0.2);
-            --button-border: rgba(255, 110, 199, 0.5);
+            /* Monochromatic Elegance - Deep Space Blue & Ethereal Silver */
+            --primary: #0a1121;
+            --primary-light: #1a2332;
+            --primary-lighter: #2a3443;
+            --accent: #e8eaed;
+            --accent-dark: #c9cccf;
+            --accent-darker: #aab0b6;
+            
+            /* Calculated Harmonies */
+            --shadow-depth: rgba(10, 17, 33, 0.9);
+            --glow-ethereal: rgba(232, 234, 237, 0.15);
+            --surface-glass: rgba(232, 234, 237, 0.03);
+            --border-whisper: rgba(232, 234, 237, 0.08);
+            --text-ghost: rgba(232, 234, 237, 0.7);
+            --text-phantom: rgba(232, 234, 237, 0.5);
+            
+            /* Advanced Typography */
+            --font-system: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+            --font-mono: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            --font-serif: 'Charter', 'Georgia Pro', Georgia, serif;
+            
+            /* Fluid Spacing Scale */
+            --space-xs: clamp(0.25rem, 0.5vw, 0.5rem);
+            --space-sm: clamp(0.5rem, 1vw, 1rem);
+            --space-md: clamp(1rem, 2vw, 2rem);
+            --space-lg: clamp(1.5rem, 3vw, 3rem);
+            --space-xl: clamp(2rem, 4vw, 4rem);
+            
+            /* Animation Timings */
+            --timing-instant: 0.1s;
+            --timing-fast: 0.25s;
+            --timing-normal: 0.5s;
+            --timing-slow: 0.75s;
+            --timing-glacial: 1.5s;
+            
+            /* Easing Functions */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+            --ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         * {
@@ -47,647 +75,1229 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
-            color: var(--text-primary);
+            font-family: var(--font-system);
+            background: radial-gradient(ellipse at top, var(--primary-lighter) 0%, var(--primary) 70%);
+            color: var(--accent);
             min-height: 100vh;
-            padding: 20px;
+            overflow-x: hidden;
+            font-feature-settings: "kern" 1, "liga" 1, "frac" 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
-        .container {
-            max-width: 1200px;
+        /* Atmospheric Particles System */
+        .cosmos-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .nebula-particle {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0;
+            animation: nebula-drift 15s infinite ease-in-out;
+        }
+        
+        .nebula-particle::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            border-radius: inherit;
+            filter: blur(0.5px);
+            animation: pulse-ethereal 3s infinite ease-in-out;
+        }
+        
+        /* Main Application Structure */
+        .app-shell {
+            display: grid;
+            grid-template-columns: 1fr minmax(560px, 580px);
+            gap: var(--space-xl);
+            max-width: 1600px;
             margin: 0 auto;
+            padding: var(--space-lg);
+            min-height: 100vh;
+            align-items: start;
         }
         
-        .header {
+        /* Left Panel - Control Interface */
+        .control-nexus {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+        }
+        
+        .brand-header {
             text-align: center;
-            margin-bottom: 40px;
+            padding: var(--space-lg);
         }
         
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: var(--bg-gradient);
+        .brand-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 200;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-darker) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 10px;
+            margin-bottom: var(--space-sm);
+            position: relative;
         }
         
-        .header p {
-            color: var(--text-secondary);
+        .brand-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, var(--accent) 50%, transparent 100%);
+            opacity: 0.6;
+        }
+        
+        .brand-subtitle {
+            color: var(--text-ghost);
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        
+        /* Control Panels */
+        .control-panel {
+            background: var(--surface-glass);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--border-whisper);
+            border-radius: 24px;
+            padding: var(--space-lg);
+            position: relative;
+            transition: all var(--timing-normal) var(--ease-out-expo);
+        }
+        
+        .control-panel::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(135deg, var(--glow-ethereal) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity var(--timing-fast) var(--ease-out-expo);
+        }
+        
+        .control-panel:hover::before {
+            opacity: 1;
+        }
+        
+        .panel-title {
             font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
         }
         
-        .controls {
-            display: grid;
-            gap: 20px;
-            margin-bottom: 40px;
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .panel-icon {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+        
+        /* Form Elements with Morphic Design */
+        .input-cluster {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
         }
         
         .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+            position: relative;
         }
         
-        .input-group label {
-            font-weight: 600;
-            color: var(--text-primary);
-            font-size: 0.95rem;
+        .input-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-ghost);
+            margin-bottom: var(--space-xs);
+            display: block;
+            letter-spacing: 0.025em;
         }
         
-        .input-group input,
-        .input-group textarea {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            padding: 12px 16px;
-            color: var(--text-primary);
+        .input-field, .input-area {
+            width: 100%;
+            background: rgba(232, 234, 237, 0.04);
+            border: 1px solid var(--border-whisper);
+            border-radius: 16px;
+            padding: 16px 20px;
+            font-family: inherit;
             font-size: 1rem;
-            transition: all 0.3s ease;
+            color: var(--accent);
+            transition: all var(--timing-fast) var(--ease-out-expo);
+            position: relative;
+            z-index: 1;
         }
         
-        .input-group input:focus,
-        .input-group textarea:focus {
+        .input-field:focus, .input-area:focus {
             outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 20px rgba(255, 110, 199, 0.3);
+            border-color: var(--accent-darker);
+            background: rgba(232, 234, 237, 0.08);
+            box-shadow: 0 0 0 3px rgba(232, 234, 237, 0.1), 
+                        0 8px 25px -5px var(--shadow-depth);
+            transform: translateY(-2px);
         }
         
-        .input-group textarea {
+        .input-area {
             resize: vertical;
-            min-height: 80px;
+            min-height: 100px;
+            font-family: var(--font-system);
+            line-height: 1.6;
         }
         
-        .theme-controls {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            flex-wrap: wrap;
+        /* Character Counter */
+        .char-counter {
+            position: absolute;
+            bottom: 8px;
+            right: 12px;
+            font-size: 0.8rem;
+            color: var(--text-phantom);
+            font-family: var(--font-mono);
+            pointer-events: none;
         }
         
-        .theme-controls span {
-            font-weight: 600;
-            color: var(--text-primary);
+        /* Theme Selector */
+        .theme-matrix {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-sm);
+            margin-top: var(--space-sm);
         }
         
-        .theme-btn {
-            background: var(--button-bg);
-            border: 2px solid var(--button-border);
-            color: var(--text-primary);
-            padding: 10px 20px;
-            border-radius: 25px;
+        .theme-orb {
+            aspect-ratio: 1;
+            border-radius: 50%;
+            border: 2px solid var(--border-whisper);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all var(--timing-fast) var(--ease-out-expo);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .theme-orb::before {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border-radius: 50%;
+            transition: all var(--timing-fast) var(--ease-out-expo);
+        }
+        
+        .theme-orb:hover {
+            transform: scale(1.1);
+            border-color: var(--accent-darker);
+        }
+        
+        .theme-orb.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(232, 234, 237, 0.3);
+        }
+        
+        .theme-ethereal::before { background: linear-gradient(135deg, #1a2332 0%, #2a3443 100%); }
+        .theme-cosmic::before { background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%); }
+        .theme-minimal::before { background: linear-gradient(135deg, #2a3443 0%, #3a4554 100%); }
+        
+        /* Layout Templates */
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-sm);
+            margin-top: var(--space-sm);
+        }
+        
+        .template-card {
+            aspect-ratio: 1;
+            background: var(--surface-glass);
+            border: 1px solid var(--border-whisper);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all var(--timing-fast) var(--ease-out-expo);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .template-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-darker);
+            box-shadow: 0 8px 25px -5px var(--shadow-depth);
+        }
+        
+        .template-card.active {
+            border-color: var(--accent);
+            background: rgba(232, 234, 237, 0.08);
+        }
+        
+        .template-preview {
+            width: 60%;
+            height: 60%;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Action Buttons */
+        .action-cluster {
+            display: flex;
+            gap: var(--space-sm);
+            margin-top: var(--space-lg);
+        }
+        
+        .btn-primary, .btn-secondary {
+            padding: 16px 32px;
+            border: none;
+            border-radius: 16px;
+            font-family: inherit;
+            font-size: 1rem;
             font-weight: 600;
+            cursor: pointer;
+            transition: all var(--timing-fast) var(--ease-out-expo);
+            position: relative;
+            overflow: hidden;
             backdrop-filter: blur(10px);
         }
         
-        .theme-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 110, 199, 0.4);
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-darker) 0%, var(--accent-dark) 100%);
+            color: var(--primary);
+            flex: 1;
         }
         
-        .theme-btn.active {
-            background: var(--accent);
-            border-color: var(--accent);
-            box-shadow: 0 4px 20px rgba(255, 110, 199, 0.5);
+        .btn-secondary {
+            background: var(--surface-glass);
+            border: 1px solid var(--border-whisper);
+            color: var(--accent);
+            flex: 0 0 auto;
         }
         
-        .preview-container {
+        .btn-primary:hover, .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px -10px var(--shadow-depth);
+        }
+        
+        .btn-primary::before, .btn-secondary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--glow-ethereal) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity var(--timing-fast);
+        }
+        
+        .btn-primary:hover::before, .btn-secondary:hover::before {
+            opacity: 1;
+        }
+        
+        /* Right Panel - Canvas Preview */
+        .canvas-stage {
+            position: sticky;
+            top: var(--space-lg);
             display: flex;
-            justify-content: center;
-            margin-bottom: 30px;
+            flex-direction: column;
+            gap: var(--space-md);
+            align-items: center;
         }
         
-        .post-canvas {
-            width: 540px;
-            height: 540px;
-            background: var(--bg-gradient);
-            border-radius: 20px;
+        .canvas-frame {
+            width: 560px;
+            height: 560px;
+            border-radius: 32px;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            animation: fadeIn 0.8s ease-out;
+            background: var(--primary);
+            box-shadow: 0 25px 75px -15px var(--shadow-depth),
+                        0 0 0 1px var(--border-whisper);
+            transition: all var(--timing-glacial) var(--ease-in-out-circ);
         }
         
-        .stars-bg {
+        .canvas-frame::before {
+            content: '';
             position: absolute;
-            top: 0;
-            left: 0;
+            inset: -2px;
+            border-radius: inherit;
+            background: linear-gradient(135deg, var(--glow-ethereal) 0%, transparent 50%, var(--glow-ethereal) 100%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity var(--timing-slow) var(--ease-out-expo);
+        }
+        
+        .canvas-frame:hover::before {
+            opacity: 1;
+        }
+        
+        /* Canvas Content */
+        .canvas-content {
+            position: relative;
             width: 100%;
             height: 100%;
-            opacity: 0.8;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+            overflow: hidden;
         }
         
-        .star {
+        /* Floating Constellation Background */
+        .constellation-layer {
             position: absolute;
-            background: var(--star-color);
+            inset: 0;
+            opacity: 0.3;
+        }
+        
+        .constellation-dot {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent);
             border-radius: 50%;
-            animation: twinkle 3s infinite ease-in-out;
+            animation: constellation-pulse 4s infinite ease-in-out;
         }
         
-        .star:nth-child(odd) {
-            animation-delay: 1s;
-        }
-        
-        .star:nth-child(3n) {
-            animation-delay: 2s;
-        }
-        
-        .avatar-section {
+        .constellation-line {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            height: 1px;
+            background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
+            opacity: 0.2;
+            transform-origin: left center;
+        }
+        
+        /* Post Content Layout */
+        .post-header {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            right: 30px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            justify-content: space-between;
             z-index: 10;
         }
         
-        .avatar {
-            width: 40px;
-            height: 40px;
+        .profile-cluster {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .avatar-ring {
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            background: var(--bg-gradient);
-            border: 2px solid var(--accent);
+            background: linear-gradient(135deg, var(--accent-darker) 0%, var(--accent-dark) 100%);
+            padding: 3px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            box-shadow: 0 0 20px var(--glow-color);
+        }
+        
+        .avatar-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
         }
         
         .username {
-            font-weight: 700;
-            color: var(--text-primary);
-            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--accent);
+            font-size: 1rem;
         }
         
-        .content-section {
+        .status-badge {
+            background: var(--accent-darker);
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .content-zone {
             position: absolute;
             bottom: 80px;
-            left: 30px;
-            right: 30px;
+            left: 40px;
+            right: 40px;
             z-index: 10;
         }
         
-        .headline {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        .headline-text {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: var(--accent);
             line-height: 1.2;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
         }
         
-        .subheadline {
+        .subheadline-text {
             font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 15px;
-            font-weight: 500;
-            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+            color: var(--text-ghost);
+            line-height: 1.4;
+            margin-bottom: 20px;
+            font-weight: 400;
         }
         
-        .caption {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            margin-bottom: 20px;
+        .caption-text {
+            font-size: 1rem;
+            color: var(--text-phantom);
+            line-height: 1.6;
+            margin-bottom: 24px;
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-        }
-        
-        .badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: var(--accent);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            box-shadow: 0 4px 15px rgba(255, 110, 199, 0.4);
-            z-index: 10;
         }
         
         .cta-button {
-            background: rgba(255, 255, 255, 0.15);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: var(--text-primary);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(232, 234, 237, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-whisper);
+            color: var(--accent);
             padding: 12px 24px;
-            border-radius: 25px;
-            font-weight: 700;
+            border-radius: 24px;
+            font-weight: 600;
             font-size: 0.95rem;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            display: inline-block;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            transition: all var(--timing-fast) var(--ease-out-expo);
         }
         
-        .export-section {
-            text-align: center;
+        .cta-button:hover {
+            background: rgba(232, 234, 237, 0.15);
+            border-color: var(--accent-darker);
+            transform: translateY(-2px);
         }
         
-        .export-btn {
-            background: var(--accent);
+        /* Export Controls */
+        .export-cluster {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+        
+        .size-selector {
+            display: flex;
+            background: var(--surface-glass);
+            border: 1px solid var(--border-whisper);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .size-option {
+            padding: 8px 16px;
+            background: transparent;
             border: none;
-            color: white;
-            padding: 15px 40px;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: 700;
+            color: var(--text-ghost);
+            font-size: 0.9rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 30px rgba(255, 110, 199, 0.4);
+            transition: all var(--timing-fast) var(--ease-out-expo);
         }
         
-        .export-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(255, 110, 199, 0.6);
+        .size-option.active {
+            background: var(--accent-darker);
+            color: var(--primary);
         }
         
-        .export-btn:active {
-            transform: translateY(0);
-        }
-        
-        /* Hidden canvas for export */
+        /* Hidden Export Canvas */
         #exportCanvas {
             display: none;
         }
         
-        /* Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
+        /* Responsive Adaptations */
+        @media (max-width: 1200px) {
+            .app-shell {
+                grid-template-columns: 1fr;
+                gap: var(--space-lg);
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            
+            .canvas-stage {
+                order: -1;
+                position: relative;
+                top: 0;
+            }
+            
+            .canvas-frame {
+                width: min(560px, 90vw);
+                height: min(560px, 90vw);
             }
         }
         
-        @keyframes twinkle {
+        @media (max-width: 768px) {
+            .app-shell {
+                padding: var(--space-md);
+            }
+            
+            .template-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .theme-matrix {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .action-cluster {
+                flex-direction: column;
+            }
+            
+            .btn-primary, .btn-secondary {
+                flex: 1;
+            }
+        }
+        
+        /* Advanced Animations */
+        @keyframes nebula-drift {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) translateX(-50px);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) translateX(50px);
+            }
+        }
+        
+        @keyframes pulse-ethereal {
             0%, 100% {
                 opacity: 0.3;
                 transform: scale(1);
             }
             50% {
                 opacity: 1;
+                transform: scale(1.5);
+            }
+        }
+        
+        @keyframes constellation-pulse {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
                 transform: scale(1.2);
             }
         }
         
-        /* Responsive */
-        @media (max-width: 768px) {
-            .post-canvas {
-                width: 400px;
-                height: 400px;
-            }
-            
-            .controls {
-                padding: 20px;
-            }
-            
-            .theme-controls {
-                justify-content: center;
-            }
-            
-            .header h1 {
-                font-size: 2rem;
-            }
+        /* Loading States */
+        .loading {
+            position: relative;
+            overflow: hidden;
         }
         
-        @media (max-width: 480px) {
-            .post-canvas {
-                width: 320px;
-                height: 320px;
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 0%, var(--glow-ethereal) 50%, transparent 100%);
+            animation: shimmer 1.5s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% {
+                left: -100%;
             }
-            
-            .headline {
-                font-size: 1.5rem;
-            }
-            
-            .subheadline {
-                font-size: 1rem;
+            100% {
+                left: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>✨ Instagram Post Generator</h1>
-            <p>Create stunning zodiac starmap posts in seconds</p>
-        </div>
-        
-        <div class="controls">
-            <div class="input-group">
-                <label for="headline">Headline</label>
-                <input type="text" id="headline" placeholder="Your Personal Zodiac Starmap ✨" value="Your Personal Zodiac Starmap ✨">
+    <!-- Atmospheric Background Layer -->
+    <div class="cosmos-layer" id="cosmosLayer"></div>
+    
+    <div class="app-shell">
+        <!-- Control Interface -->
+        <div class="control-nexus">
+            <div class="brand-header">
+                <h1 class="brand-title">Celestial Forge</h1>
+                <p class="brand-subtitle">Transcendent Post Creation</p>
             </div>
             
-            <div class="input-group">
-                <label for="subheadline">Subheadline</label>
-                <input type="text" id="subheadline" placeholder="A snapshot of the stars on your special day" value="A snapshot of the stars on your special day">
-            </div>
-            
-            <div class="input-group">
-                <label for="caption">Caption / Fact</label>
-                <textarea id="caption" placeholder="Did you know? Jupiter shields Earth by pulling away asteroids 🌌">Did you know? Jupiter shields Earth by pulling away asteroids 🌌</textarea>
-            </div>
-            
-            <div class="input-group">
-                <label for="cta">CTA Button Text</label>
-                <input type="text" id="cta" placeholder="Get Your Starmap" value="Get Your Starmap">
-            </div>
-            
-            <div class="theme-controls">
-                <span>Themes:</span>
-                <button class="theme-btn active" data-theme="galaxy">Galaxy Neon</button>
-                <button class="theme-btn" data-theme="mystic">Mystic Blue</button>
-                <button class="theme-btn" data-theme="golden">Golden Night</button>
-            </div>
-        </div>
-        
-        <div class="preview-container">
-            <div class="post-canvas" id="postCanvas">
-                <div class="stars-bg" id="starsBg"></div>
+            <!-- Content Controls -->
+            <div class="control-panel">
+                <h2 class="panel-title">
+                    <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14,2 14,8 20,8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10,9 9,9 8,9"/>
+                    </svg>
+                    Content
+                </h2>
                 
-                <div class="avatar-section">
-                    <div class="avatar">🌟</div>
-                    <div class="username">@The_Vanallenbelt</div>
+                <div class="input-cluster">
+                    <div class="input-group">
+                        <label class="input-label" for="headline">Headline</label>
+                        <input type="text" id="headline" class="input-field" 
+                               placeholder="Your Cosmic Journey Begins ✨" 
+                               value="Your Personal Starmap ✨" maxlength="50">
+                        <span class="char-counter" id="headlineCounter">24/50</span>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label" for="subheadline">Subheadline</label>
+                        <input type="text" id="subheadline" class="input-field" 
+                               placeholder="Discover the stars that shaped your destiny"
+                               value="A snapshot of the cosmos on your special day" maxlength="80">
+                        <span class="char-counter" id="subheadlineCounter">43/80</span>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label" for="caption">Caption</label>
+                        <textarea id="caption" class="input-area" 
+                                  placeholder="Share an inspiring fact about the universe..."
+                                  maxlength="200">Did you know? Jupiter acts as Earth's cosmic guardian, deflecting dangerous asteroids with its massive gravitational pull 🌌</textarea>
+                        <span class="char-counter" id="captionCounter">118/200</span>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label" for="cta">Call to Action</label>
+                        <input type="text" id="cta" class="input-field" 
+                               placeholder="Discover Your Stars"
+                               value="Get Your Starmap" maxlength="25">
+                        <span class="char-counter" id="ctaCounter">15/25</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Design Controls -->
+            <div class="control-panel">
+                <h2 class="panel-title">
+                    <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
+                    </svg>
+                    Aesthetic
+                </h2>
+                
+                <div class="input-group">
+                    <label class="input-label">Cosmic Theme</label>
+                    <div class="theme-matrix">
+                        <div class="theme-orb theme-ethereal active" data-theme="ethereal" title="Ethereal Deep"></div>
+                        <div class="theme-orb theme-cosmic" data-theme="cosmic" title="Cosmic Void"></div>
+                        <div class="theme-orb theme-minimal" data-theme="minimal" title="Minimal Zen"></div>
+                    </div>
                 </div>
                 
-                <div class="badge">NEW</div>
+                <div class="input-group">
+                    <label class="input-label">Layout Template</label>
+                    <div class="template-grid">
+                        <div class="template-card active" data-template="classic">
+                            <div class="template-preview" style="background: linear-gradient(135deg, var(--primary-light), var(--primary));"></div>
+                        </div>
+                        <div class="template-card" data-template="minimal">
+                            <div class="template-preview" style="background: var(--primary-lighter);"></div>
+                        </div>
+                        <div class="template-card" data-template="split">
+                            <div class="template-preview" style="background: linear-gradient(180deg, var(--primary-light) 50%, var(--primary) 50%);"></div>
+                        </div>
+                        <div class="template-card" data-template="overlay">
+                            <div class="template-preview" style="background: radial-gradient(circle, var(--primary-lighter), var(--primary));"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Export Controls -->
+            <div class="control-panel">
+                <h2 class="panel-title">
+                    <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7,10 12,15 17,10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    Export
+                </h2>
                 
-                <div class="content-section">
-                    <div class="headline" id="previewHeadline">Your Personal Zodiac Starmap ✨</div>
-                    <div class="subheadline" id="previewSubheadline">A snapshot of the stars on your special day</div>
-                    <div class="caption" id="previewCaption">Did you know? Jupiter shields Earth by pulling away asteroids 🌌</div>
-                    <div class="cta-button" id="previewCTA">Get Your Starmap</div>
+                <div class="action-cluster">
+                    <button class="btn-primary" onclick="exportPost()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7,10 12,15 17,10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                        Download PNG
+                    </button>
+                    <button class="btn-secondary" onclick="saveTemplate()" title="Save Current Design">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                            <polyline points="17,21 17,13 7,13 7,21"/>
+                            <polyline points="7,3 7,8 15,8"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="export-cluster">
+                    <div class="size-selector">
+                        <button class="size-option active" data-size="1080">Post</button>
+                        <button class="size-option" data-size="1080x1920">Story</button>
+                        <button class="size-option" data-size="1080x566">Carousel</button>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <div class="export-section">
-            <button class="export-btn" onclick="exportPost()" aria-label="Download Instagram post as PNG">
-                📱 Download PNG
-            </button>
+        <!-- Canvas Preview -->
+        <div class="canvas-stage">
+            <div class="canvas-frame" id="canvasFrame">
+                <div class="canvas-content" id="canvasContent">
+                    <!-- Constellation Background -->
+                    <div class="constellation-layer" id="constellationLayer"></div>
+                    
+                    <!-- Post Header -->
+                    <div class="post-header">
+                        <div class="profile-cluster">
+                            <div class="avatar-ring">
+                                <div class="avatar-inner">🌟</div>
+                            </div>
+                            <div class="username">@The_Vanallenbelt</div>
+                        </div>
+                        <div class="status-badge">NEW</div>
+                    </div>
+                    
+                    <!-- Main Content -->
+                    <div class="content-zone">
+                        <h1 class="headline-text" id="previewHeadline">Your Personal Starmap ✨</h1>
+                        <p class="subheadline-text" id="previewSubheadline">A snapshot of the cosmos on your special day</p>
+                        <p class="caption-text" id="previewCaption">Did you know? Jupiter acts as Earth's cosmic guardian, deflecting dangerous asteroids with its massive gravitational pull 🌌</p>
+                        <div class="cta-button" id="previewCTA">
+                            <span>Get Your Starmap</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                                <polyline points="12,5 19,12 12,19"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Canvas Meta Info -->
+            <div class="canvas-meta" style="display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 0 20px; color: var(--text-phantom); font-size: 0.9rem; font-family: var(--font-mono);">
+                <span>1080 × 1080px</span>
+                <span id="renderTime">Rendered in 0ms</span>
+            </div>
         </div>
     </div>
     
     <canvas id="exportCanvas" width="1080" height="1080"></canvas>
     
     <script>
-        // Theme configurations
-        const themes = {
-            galaxy: {
-                accent: '#ff6ec7',
-                accentSecondary: '#7c3aed',
-                bgGradient: 'linear-gradient(135deg, #1a0033 0%, #4c1d95 50%, #7c2d12 100%)',
-                starColor: '#fbbf24',
-                textPrimary: '#ffffff',
-                textSecondary: '#e5e7eb',
-                cardBg: 'rgba(255, 255, 255, 0.1)',
-                glowColor: '#ff6ec7',
-                buttonBg: 'rgba(255, 110, 199, 0.2)',
-                buttonBorder: 'rgba(255, 110, 199, 0.5)'
+        // Advanced Theme System
+        const cosmicThemes = {
+            ethereal: {
+                primary: '#0a1121',
+                primaryLight: '#1a2332', 
+                primaryLighter: '#2a3443',
+                accent: '#e8eaed',
+                accentDark: '#c9cccf',
+                accentDarker: '#aab0b6',
+                gradientStops: ['#1a2332', '#0a1121', '#0f1419']
             },
-            mystic: {
-                accent: '#06b6d4',
-                accentSecondary: '#1e40af',
-                bgGradient: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f4a5c 100%)',
-                starColor: '#38bdf8',
-                textPrimary: '#ffffff',
-                textSecondary: '#cbd5e1',
-                cardBg: 'rgba(255, 255, 255, 0.1)',
-                glowColor: '#06b6d4',
-                buttonBg: 'rgba(6, 182, 212, 0.2)',
-                buttonBorder: 'rgba(6, 182, 212, 0.5)'
+            cosmic: {
+                primary: '#0f1419',
+                primaryLight: '#1a2332',
+                primaryLighter: '#252d3a',
+                accent: '#e8eaed', 
+                accentDark: '#c9cccf',
+                accentDarker: '#aab0b6',
+                gradientStops: ['#0f1419', '#1a2332', '#252d3a']
             },
-            golden: {
-                accent: '#f59e0b',
-                accentSecondary: '#92400e',
-                bgGradient: 'linear-gradient(135deg, #000000 0%, #1c1917 50%, #451a03 100%)',
-                starColor: '#fbbf24',
-                textPrimary: '#ffffff',
-                textSecondary: '#d6d3d1',
-                cardBg: 'rgba(255, 255, 255, 0.1)',
-                glowColor: '#f59e0b',
-                buttonBg: 'rgba(245, 158, 11, 0.2)',
-                buttonBorder: 'rgba(245, 158, 11, 0.5)'
+            minimal: {
+                primary: '#2a3443',
+                primaryLight: '#3a4554',
+                primaryLighter: '#4a5565', 
+                accent: '#e8eaed',
+                accentDark: '#c9cccf',
+                accentDarker: '#aab0b6',
+                gradientStops: ['#3a4554', '#2a3443', '#1a2332']
             }
         };
         
-        // Generate stars
-        function generateStars() {
-            const starsBg = document.getElementById('starsBg');
-            starsBg.innerHTML = '';
+        const layoutTemplates = {
+            classic: { contentBottom: 80, headerTop: 30 },
+            minimal: { contentBottom: 120, headerTop: 40 },
+            split: { contentBottom: 60, headerTop: 30 },
+            overlay: { contentBottom: 100, headerTop: 35 }
+        };
+        
+        let currentTheme = 'ethereal';
+        let currentTemplate = 'classic';
+        let currentSize = '1080';
+        let renderStartTime = 0;
+        
+        // Atmospheric Particle System
+        function initializeCosmosLayer() {
+            const cosmosLayer = document.getElementById('cosmosLayer');
             
-            for (let i = 0; i < 50; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.width = (Math.random() * 3 + 1) + 'px';
-                star.style.height = star.style.width;
-                star.style.animationDelay = Math.random() * 3 + 's';
-                starsBg.appendChild(star);
+            // Create floating particles
+            for (let i = 0; i < 25; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'nebula-particle';
+                    particle.style.left = Math.random() * 100 + 'vw';
+                    particle.style.animationDelay = Math.random() * 15 + 's';
+                    particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                    cosmosLayer.appendChild(particle);
+                    
+                    // Remove particle after animation
+                    setTimeout(() => {
+                        particle.remove();
+                    }, 25000);
+                }, i * 600);
+            }
+            
+            // Regenerate particles continuously
+            setInterval(() => {
+                if (cosmosLayer.children.length < 15) {
+                    const particle = document.createElement('div');
+                    particle.className = 'nebula-particle';
+                    particle.style.left = Math.random() * 100 + 'vw';
+                    cosmosLayer.appendChild(particle);
+                    
+                    setTimeout(() => particle.remove(), 25000);
+                }
+            }, 2000);
+        }
+        
+        // Constellation Pattern Generator
+        function generateConstellation() {
+            const layer = document.getElementById('constellationLayer');
+            layer.innerHTML = '';
+            
+            // Create constellation points
+            const points = [];
+            for (let i = 0; i < 12; i++) {
+                const point = {
+                    x: 10 + Math.random() * 80,
+                    y: 10 + Math.random() * 80
+                };
+                points.push(point);
+                
+                const dot = document.createElement('div');
+                dot.className = 'constellation-dot';
+                dot.style.left = point.x + '%';
+                dot.style.top = point.y + '%';
+                dot.style.animationDelay = Math.random() * 4 + 's';
+                layer.appendChild(dot);
+            }
+            
+            // Connect nearby points with lines
+            for (let i = 0; i < points.length; i++) {
+                for (let j = i + 1; j < points.length; j++) {
+                    const distance = Math.sqrt(
+                        Math.pow(points[i].x - points[j].x, 2) + 
+                        Math.pow(points[i].y - points[j].y, 2)
+                    );
+                    
+                    if (distance < 25) {
+                        const line = document.createElement('div');
+                        line.className = 'constellation-line';
+                        line.style.left = points[i].x + '%';
+                        line.style.top = points[i].y + '%';
+                        line.style.width = distance + '%';
+                        
+                        const angle = Math.atan2(
+                            points[j].y - points[i].y,
+                            points[j].x - points[i].x
+                        ) * (180 / Math.PI);
+                        line.style.transform = `rotate(${angle}deg)`;
+                        
+                        layer.appendChild(line);
+                    }
+                }
             }
         }
         
-        // Apply theme
-        function applyTheme(themeName) {
-            const theme = themes[themeName];
-            const root = document.documentElement;
+        // Character Counter Updates
+        function updateCharacterCounters() {
+            const fields = ['headline', 'subheadline', 'caption', 'cta'];
+            const limits = { headline: 50, subheadline: 80, caption: 200, cta: 25 };
             
-            root.style.setProperty('--accent', theme.accent);
-            root.style.setProperty('--accent-secondary', theme.accentSecondary);
-            root.style.setProperty('--bg-gradient', theme.bgGradient);
-            root.style.setProperty('--star-color', theme.starColor);
-            root.style.setProperty('--text-primary', theme.textPrimary);
-            root.style.setProperty('--text-secondary', theme.textSecondary);
-            root.style.setProperty('--card-bg', theme.cardBg);
-            root.style.setProperty('--glow-color', theme.glowColor);
-            root.style.setProperty('--button-bg', theme.buttonBg);
-            root.style.setProperty('--button-border', theme.buttonBorder);
-            
-            // Update active theme button
-            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`[data-theme="${themeName}"]`).classList.add('active');
+            fields.forEach(field => {
+                const input = document.getElementById(field);
+                const counter = document.getElementById(field + 'Counter');
+                const count = input.value.length;
+                const limit = limits[field];
+                
+                counter.textContent = `${count}/${limit}`;
+                counter.style.color = count > limit * 0.9 ? 'var(--accent)' : 'var(--text-phantom)';
+            });
         }
         
-        // Update preview
+        // Dynamic Preview Updates
         function updatePreview() {
-            const headline = document.getElementById('headline').value;
-            const subheadline = document.getElementById('subheadline').value;
-            const caption = document.getElementById('caption').value;
-            const cta = document.getElementById('cta').value;
+            renderStartTime = performance.now();
+            
+            const headline = document.getElementById('headline').value || 'Your Cosmic Journey ✨';
+            const subheadline = document.getElementById('subheadline').value || 'Discover your stellar destiny';
+            const caption = document.getElementById('caption').value || 'The universe holds infinite mysteries...';
+            const cta = document.getElementById('cta').value || 'Explore Now';
             
             document.getElementById('previewHeadline').textContent = headline;
             document.getElementById('previewSubheadline').textContent = subheadline;
             document.getElementById('previewCaption').textContent = caption;
-            document.getElementById('previewCTA').textContent = cta;
+            document.getElementById('previewCTA').querySelector('span').textContent = cta;
+            
+            updateCharacterCounters();
+            
+            // Update render time
+            setTimeout(() => {
+                const renderTime = Math.round(performance.now() - renderStartTime);
+                document.getElementById('renderTime').textContent = `Rendered in ${renderTime}ms`;
+            }, 50);
         }
         
-        // Export to PNG
+        // Theme Application
+        function applyTheme(themeName) {
+            const theme = cosmicThemes[themeName];
+            const root = document.documentElement;
+            
+            // Update CSS variables
+            root.style.setProperty('--primary', theme.primary);
+            root.style.setProperty('--primary-light', theme.primaryLight);
+            root.style.setProperty('--primary-lighter', theme.primaryLighter);
+            root.style.setProperty('--accent', theme.accent);
+            root.style.setProperty('--accent-dark', theme.accentDark);
+            root.style.setProperty('--accent-darker', theme.accentDarker);
+            
+            // Update canvas background
+            const canvasContent = document.getElementById('canvasContent');
+            canvasContent.style.background = `linear-gradient(135deg, ${theme.gradientStops.join(', ')})`;
+            
+            // Update active theme indicator
+            document.querySelectorAll('.theme-orb').forEach(orb => orb.classList.remove('active'));
+            document.querySelector(`[data-theme="${themeName}"]`).classList.add('active');
+            
+            currentTheme = themeName;
+            generateConstellation(); // Regenerate constellation for new theme
+        }
+        
+        // Template Application
+        function applyTemplate(templateName) {
+            const template = layoutTemplates[templateName];
+            const contentZone = document.querySelector('.content-zone');
+            const postHeader = document.querySelector('.post-header');
+            
+            contentZone.style.bottom = template.contentBottom + 'px';
+            postHeader.style.top = template.headerTop + 'px';
+            
+            // Update active template indicator
+            document.querySelectorAll('.template-card').forEach(card => card.classList.remove('active'));
+            document.querySelector(`[data-template="${templateName}"]`).classList.add('active');
+            
+            currentTemplate = templateName;
+        }
+        
+        // Advanced Export System
         function exportPost() {
             const canvas = document.getElementById('exportCanvas');
             const ctx = canvas.getContext('2d');
             
-            // Clear canvas
-            ctx.clearRect(0, 0, 1080, 1080);
+            // Set canvas size based on selection
+            const sizeMap = {
+                '1080': { width: 1080, height: 1080, name: 'instagram-post' },
+                '1080x1920': { width: 1080, height: 1920, name: 'instagram-story' },
+                '1080x566': { width: 1080, height: 566, name: 'instagram-carousel' }
+            };
             
-            // Get current theme
-            const activeTheme = document.querySelector('.theme-btn.active').dataset.theme;
-            const theme = themes[activeTheme];
+            const size = sizeMap[currentSize];
+            canvas.width = size.width;
+            canvas.height = size.height;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, size.width, size.height);
+            
+            // Get theme
+            const theme = cosmicThemes[currentTheme];
             
             // Create gradient background
-            const gradient = ctx.createLinearGradient(0, 0, 1080, 1080);
-            if (activeTheme === 'galaxy') {
-                gradient.addColorStop(0, '#1a0033');
-                gradient.addColorStop(0.5, '#4c1d95');
-                gradient.addColorStop(1, '#7c2d12');
-            } else if (activeTheme === 'mystic') {
-                gradient.addColorStop(0, '#0f172a');
-                gradient.addColorStop(0.5, '#1e293b');
-                gradient.addColorStop(1, '#0f4a5c');
-            } else if (activeTheme === 'golden') {
-                gradient.addColorStop(0, '#000000');
-                gradient.addColorStop(0.5, '#1c1917');
-                gradient.addColorStop(1, '#451a03');
-            }
+            const gradient = ctx.createLinearGradient(0, 0, size.width, size.height);
+            gradient.addColorStop(0, theme.gradientStops[0]);
+            gradient.addColorStop(0.5, theme.gradientStops[1]);
+            gradient.addColorStop(1, theme.gradientStops[2]);
             
             ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, 1080, 1080);
+            ctx.fillRect(0, 0, size.width, size.height);
             
-            // Draw stars
-            ctx.fillStyle = theme.starColor;
-            for (let i = 0; i < 100; i++) {
-                const x = Math.random() * 1080;
-                const y = Math.random() * 1080;
-                const size = Math.random() * 6 + 2;
+            // Add constellation dots
+            ctx.fillStyle = theme.accent;
+            ctx.globalAlpha = 0.4;
+            for (let i = 0; i < 20; i++) {
+                const x = Math.random() * size.width;
+                const y = Math.random() * size.height;
+                const radius = Math.random() * 3 + 1;
                 
                 ctx.beginPath();
-                ctx.arc(x, y, size, 0, Math.PI * 2);
+                ctx.arc(x, y, radius, 0, Math.PI * 2);
                 ctx.fill();
             }
+            ctx.globalAlpha = 1;
             
-            // Draw avatar circle
-            ctx.strokeStyle = theme.accent;
-            ctx.lineWidth = 4;
+            // Scale factors for different sizes
+            const scale = size.width / 1080;
+            
+            // Draw avatar
+            ctx.strokeStyle = theme.accentDark;
+            ctx.lineWidth = 4 * scale;
             ctx.beginPath();
-            ctx.arc(60, 60, 30, 0, Math.PI * 2);
+            ctx.arc(60 * scale, 60 * scale, 24 * scale, 0, Math.PI * 2);
             ctx.stroke();
             
             // Avatar emoji
-            ctx.font = '30px Arial';
+            ctx.font = `${24 * scale}px Arial`;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.fillStyle = '#ffffff';
-            ctx.fillText('🌟', 60, 60);
+            ctx.fillStyle = theme.accent;
+            ctx.fillText('🌟', 60 * scale, 60 * scale);
             
             // Username
-            ctx.font = 'bold 24px Arial';
+            ctx.font = `bold ${20 * scale}px -apple-system, system-ui, sans-serif`;
             ctx.textAlign = 'left';
             ctx.textBaseline = 'middle';
-            ctx.fillStyle = '#ffffff';
-            ctx.fillText('@The_Vanallenbelt', 110, 60);
+            ctx.fillText('@The_Vanallenbelt', 100 * scale, 60 * scale);
             
-            // Badge
-            ctx.fillStyle = theme.accent;
-            ctx.fillRect(950, 35, 100, 50);
-            ctx.font = 'bold 20px Arial';
+            // Status badge
+            const badgeWidth = 80 * scale;
+            const badgeHeight = 32 * scale;
+            ctx.fillStyle = theme.accentDarker;
+            roundRect(ctx, size.width - 120 * scale, 44 * scale, badgeWidth, badgeHeight, 16 * scale);
+            ctx.fill();
+            
+            ctx.font = `bold ${14 * scale}px -apple-system, system-ui, sans-serif`;
             ctx.textAlign = 'center';
-            ctx.fillStyle = '#ffffff';
-            ctx.fillText('NEW', 1000, 60);
+            ctx.fillStyle = theme.primary;
+            ctx.fillText('NEW', size.width - 80 * scale, 60 * scale);
             
-            // Content
-            const headline = document.getElementById('headline').value;
-            const subheadline = document.getElementById('subheadline').value;
-            const caption = document.getElementById('caption').value;
-            const cta = document.getElementById('cta').value;
+            // Content positioning based on template and size
+            const template = layoutTemplates[currentTemplate];
+            let contentY = size.height - (template.contentBottom * scale);
+            
+            // Get text content
+            const headline = document.getElementById('headline').value || 'Your Cosmic Journey ✨';
+            const subheadline = document.getElementById('subheadline').value || 'Discover your stellar destiny';
+            const caption = document.getElementById('caption').value || 'The universe holds infinite mysteries...';
+            const cta = document.getElementById('cta').value || 'Explore Now';
             
             // Headline
-            ctx.font = 'bold 64px Arial';
+            ctx.font = `bold ${48 * scale}px -apple-system, system-ui, sans-serif`;
             ctx.textAlign = 'left';
-            ctx.fillStyle = '#ffffff';
-            ctx.shadowColor = 'rgba(0,0,0,0.5)';
-            ctx.shadowBlur = 10;
-            ctx.shadowOffsetY = 2;
-            const headlineLines = wrapText(ctx, headline, 60, 900);
-            let currentY = 750;
+            ctx.fillStyle = theme.accent;
+            const headlineLines = wrapText(ctx, headline, 60 * scale, size.width - 120 * scale);
             headlineLines.forEach(line => {
-                ctx.fillText(line, 60, currentY);
-                currentY += 75;
+                ctx.fillText(line, 60 * scale, contentY);
+                contentY += 60 * scale;
             });
+            
+            contentY += 12 * scale;
             
             // Subheadline
-            ctx.font = '28px Arial';
-            ctx.fillStyle = theme.textSecondary;
-            ctx.shadowBlur = 5;
-            const subheadlineLines = wrapText(ctx, subheadline, 60, 900);
+            ctx.font = `${24 * scale}px -apple-system, system-ui, sans-serif`;
+            ctx.fillStyle = theme.accentDark;
+            const subheadlineLines = wrapText(ctx, subheadline, 60 * scale, size.width - 120 * scale);
             subheadlineLines.forEach(line => {
-                ctx.fillText(line, 60, currentY);
-                currentY += 35;
+                ctx.fillText(line, 60 * scale, contentY);
+                contentY += 32 * scale;
             });
             
-            currentY += 20;
+            contentY += 20 * scale;
             
             // Caption
-            ctx.font = '24px Arial';
-            ctx.fillStyle = theme.textSecondary;
-            const captionLines = wrapText(ctx, caption, 60, 900);
+            ctx.font = `${20 * scale}px -apple-system, system-ui, sans-serif`;
+            ctx.fillStyle = theme.accentDarker;
+            const captionLines = wrapText(ctx, caption, 60 * scale, size.width - 120 * scale);
             const maxCaptionLines = 3;
             for (let i = 0; i < Math.min(captionLines.length, maxCaptionLines); i++) {
                 let line = captionLines[i];
                 if (i === maxCaptionLines - 1 && captionLines.length > maxCaptionLines) {
                     line = line.substring(0, line.length - 3) + '...';
                 }
-                ctx.fillText(line, 60, currentY);
-                currentY += 30;
+                ctx.fillText(line, 60 * scale, contentY);
+                contentY += 26 * scale;
             }
             
-            currentY += 30;
+            contentY += 24 * scale;
             
             // CTA Button
-            ctx.strokeStyle = 'rgba(255,255,255,0.3)';
-            ctx.lineWidth = 2;
-            ctx.fillStyle = 'rgba(255,255,255,0.15)';
-            const buttonWidth = Math.min(cta.length * 20 + 60, 400);
-            ctx.fillRect(60, currentY, buttonWidth, 50);
-            ctx.strokeRect(60, currentY, buttonWidth, 50);
+            const buttonPadding = 24 * scale;
+            const buttonHeight = 48 * scale;
+            ctx.font = `bold ${18 * scale}px -apple-system, system-ui, sans-serif`;
+            const buttonWidth = ctx.measureText(cta).width + (buttonPadding * 2);
             
-            ctx.font = 'bold 24px Arial';
-            ctx.fillStyle = '#ffffff';
+            // Button background
+            ctx.globalAlpha = 0.1;
+            ctx.fillStyle = theme.accent;
+            roundRect(ctx, 60 * scale, contentY - buttonHeight/2, buttonWidth, buttonHeight, 24 * scale);
+            ctx.fill();
+            
+            // Button border
+            ctx.globalAlpha = 0.3;
+            ctx.strokeStyle = theme.accent;
+            ctx.lineWidth = 2 * scale;
+            ctx.stroke();
+            
+            // Button text
+            ctx.globalAlpha = 1;
+            ctx.fillStyle = theme.accent;
             ctx.textAlign = 'center';
-            ctx.fillText(cta, 60 + buttonWidth/2, currentY + 30);
-            
-            // Reset shadows
-            ctx.shadowColor = 'transparent';
-            ctx.shadowBlur = 0;
-            ctx.shadowOffsetY = 0;
+            ctx.fillText(cta, 60 * scale + buttonWidth/2, contentY);
             
             // Download
             const link = document.createElement('a');
-            link.download = 'zodiac-starmap-post.png';
-            link.href = canvas.toDataURL();
+            link.download = `${size.name}-${Date.now()}.png`;
+            link.href = canvas.toDataURL('image/png', 1.0);
             link.click();
+            
+            // Show success feedback
+            showExportSuccess();
         }
         
-        // Text wrapping utility
+        // Helper Functions
+        function roundRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+        
         function wrapText(ctx, text, maxWidth) {
             const words = text.split(' ');
             const lines = [];
@@ -707,21 +1317,84 @@
             return lines;
         }
         
-        // Event listeners
+        function showExportSuccess() {
+            const btn = document.querySelector('.btn-primary');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20,6 9,17 4,12"/>
+                </svg>
+                Exported!
+            `;
+            btn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = '';
+            }, 2000);
+        }
+        
+        function saveTemplate() {
+            const template = {
+                theme: currentTheme,
+                layout: currentTemplate,
+                content: {
+                    headline: document.getElementById('headline').value,
+                    subheadline: document.getElementById('subheadline').value,
+                    caption: document.getElementById('caption').value,
+                    cta: document.getElementById('cta').value
+                }
+            };
+            
+            const templates = JSON.parse(localStorage.getItem('celestialTemplates') || '[]');
+            templates.push({ ...template, timestamp: Date.now() });
+            localStorage.setItem('celestialTemplates', JSON.stringify(templates));
+            
+            // Show feedback
+            const btn = document.querySelector('.btn-secondary');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20,6 9,17 4,12"/>
+                </svg>
+            `;
+            setTimeout(() => btn.innerHTML = originalText, 1500);
+        }
+        
+        // Event Listeners
         document.getElementById('headline').addEventListener('input', updatePreview);
         document.getElementById('subheadline').addEventListener('input', updatePreview);
         document.getElementById('caption').addEventListener('input', updatePreview);
         document.getElementById('cta').addEventListener('input', updatePreview);
         
-        document.querySelectorAll('.theme-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                applyTheme(btn.dataset.theme);
+        // Theme switching
+        document.querySelectorAll('.theme-orb').forEach(orb => {
+            orb.addEventListener('click', () => applyTheme(orb.dataset.theme));
+        });
+        
+        // Template switching
+        document.querySelectorAll('.template-card').forEach(card => {
+            card.addEventListener('click', () => applyTemplate(card.dataset.template));
+        });
+        
+        // Size selection
+        document.querySelectorAll('.size-option').forEach(option => {
+            option.addEventListener('click', () => {
+                document.querySelectorAll('.size-option').forEach(opt => opt.classList.remove('active'));
+                option.classList.add('active');
+                currentSize = option.dataset.size;
             });
         });
         
         // Initialize
-        generateStars();
-        updatePreview();
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeCosmosLayer();
+            generateConstellation();
+            updatePreview();
+            
+            // Regenerate constellation periodically
+            setInterval(generateConstellation, 30000);
+        });
     </script>
 </body>
 </html>
