@@ -1122,47 +1122,169 @@
         
         // Advanced Export System
         function exportPost() {
-            const canvas = document.getElementById('exportCanvas');
-            const ctx = canvas.getContext('2d');
-            
-            // Set canvas size based on selection
-            const sizeMap = {
-                '1080': { width: 1080, height: 1080, name: 'instagram-post' },
-                '1080x1920': { width: 1080, height: 1920, name: 'instagram-story' },
-                '1080x566': { width: 1080, height: 566, name: 'instagram-carousel' }
-            };
-            
-            const size = sizeMap[currentSize];
-            canvas.width = size.width;
-            canvas.height = size.height;
-            
-            // Clear canvas
-            ctx.clearRect(0, 0, size.width, size.height);
-            
-            // Get theme
-            const theme = cosmicThemes[currentTheme];
-            
-            // Create gradient background
-            const gradient = ctx.createLinearGradient(0, 0, size.width, size.height);
-            gradient.addColorStop(0, theme.gradientStops[0]);
-            gradient.addColorStop(0.5, theme.gradientStops[1]);
-            gradient.addColorStop(1, theme.gradientStops[2]);
-            
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, size.width, size.height);
-            
-            // Add constellation dots
-            ctx.fillStyle = theme.accent;
-            ctx.globalAlpha = 0.4;
-            for (let i = 0; i < 20; i++) {
-                const x = Math.random() * size.width;
-                const y = Math.random() * size.height;
-                const radius = Math.random() * 3 + 1;
-                
-                ctx.beginPath();
-                ctx.arc(x, y, radius, 0, Math.PI * 2);
-                ctx.fill();
-            }
+    const canvas = document.getElementById('exportCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Size settings
+    const sizeMap = {
+        '1080': { width: 1080, height: 1080, name: 'instagram-post' },
+        '1080x1920': { width: 1080, height: 1920, name: 'instagram-story' },
+        '1080x566': { width: 1080, height: 566, name: 'instagram-carousel' }
+    };
+
+    const size = sizeMap[currentSize];
+    canvas.width = size.width;
+    canvas.height = size.height;
+
+    // Clear
+    ctx.clearRect(0, 0, size.width, size.height);
+
+    // Theme
+    const theme = cosmicThemes[currentTheme];
+
+    // Background gradient
+    const gradient = ctx.createLinearGradient(0, 0, size.width, size.height);
+    gradient.addColorStop(0, theme.gradientStops[0]);
+    gradient.addColorStop(0.5, theme.gradientStops[1]);
+    gradient.addColorStop(1, theme.gradientStops[2]);
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, size.width, size.height);
+
+    // Constellation dots
+    ctx.fillStyle = theme.accent;
+    ctx.globalAlpha = 0.4;
+    for (let i = 0; i < 20; i++) {
+        const x = Math.random() * size.width;
+        const y = Math.random() * size.height;
+        const radius = Math.random() * 3 + 1;
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    // Scale factor
+    const scale = size.width / 1080;
+
+    // Avatar ring
+    ctx.strokeStyle = theme.accentDark;
+    ctx.lineWidth = 4 * scale;
+    ctx.beginPath();
+    ctx.arc(60 * scale, 60 * scale, 24 * scale, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Avatar emoji
+    ctx.font = `${24 * scale}px "Segoe UI Emoji", Arial, sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = theme.accent;
+    ctx.fillText('🌟', 60 * scale, 60 * scale);
+
+    // Username
+    ctx.font = `bold ${20 * scale}px -apple-system, system-ui, sans-serif`;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('@The_Vanallenbelt', 100 * scale, 60 * scale);
+
+    // Status badge
+    const badgeWidth = 80 * scale;
+    const badgeHeight = 32 * scale;
+    ctx.fillStyle = theme.accentDarker;
+    roundRect(ctx, size.width - 120 * scale, 44 * scale, badgeWidth, badgeHeight, 16 * scale);
+    ctx.fill();
+
+    ctx.font = `bold ${14 * scale}px -apple-system, system-ui, sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.fillStyle = theme.primary;
+    ctx.fillText('NEW', size.width - 80 * scale, 60 * scale);
+
+    // Content positioning
+    const template = layoutTemplates[currentTemplate];
+    let contentY = size.height - (template.contentBottom * scale);
+
+    // Prevent text from going off screen
+    if (contentY > size.height - 200 * scale) {
+        contentY = size.height - 200 * scale;
+    }
+
+    // Content values
+    const headline = document.getElementById('headline').value || 'Your Cosmic Journey ✨';
+    const subheadline = document.getElementById('subheadline').value || 'Discover your stellar destiny';
+    const caption = document.getElementById('caption').value || 'The universe holds infinite mysteries...';
+    const cta = document.getElementById('cta').value || 'Explore Now';
+
+    // Headline
+    ctx.font = `bold ${48 * scale}px -apple-system, system-ui, sans-serif`;
+    ctx.textAlign = 'left';
+    ctx.fillStyle = theme.accent;
+    const headlineLines = wrapText(ctx, headline, 60 * scale, size.width - 120 * scale);
+    headlineLines.forEach(line => {
+        ctx.fillText(line, 60 * scale, contentY);
+        contentY += 60 * scale;
+    });
+
+    contentY += 12 * scale;
+
+    // Subheadline
+    ctx.font = `${24 * scale}px -apple-system, system-ui, sans-serif`;
+    ctx.fillStyle = theme.accentDark;
+    const subheadlineLines = wrapText(ctx, subheadline, 60 * scale, size.width - 120 * scale);
+    subheadlineLines.forEach(line => {
+        ctx.fillText(line, 60 * scale, contentY);
+        contentY += 32 * scale;
+    });
+
+    contentY += 20 * scale;
+
+    // Caption (max 3 lines)
+    ctx.font = `${20 * scale}px -apple-system, system-ui, sans-serif`;
+    ctx.fillStyle = theme.accentDarker;
+    const captionLines = wrapText(ctx, caption, 60 * scale, size.width - 120 * scale);
+    const maxCaptionLines = 3;
+    for (let i = 0; i < Math.min(captionLines.length, maxCaptionLines); i++) {
+        let line = captionLines[i];
+        if (i === maxCaptionLines - 1 && captionLines.length > maxCaptionLines) {
+            line = line.substring(0, line.length - 3) + '...';
+        }
+        ctx.fillText(line, 60 * scale, contentY);
+        contentY += 26 * scale;
+    }
+
+    contentY += 24 * scale;
+
+    // CTA button
+    const buttonPadding = 24 * scale;
+    const buttonHeight = 48 * scale;
+    ctx.font = `bold ${18 * scale}px -apple-system, system-ui, sans-serif`;
+    const buttonWidth = ctx.measureText(cta).width + (buttonPadding * 2);
+
+    // Background
+    ctx.globalAlpha = 0.1;
+    ctx.fillStyle = theme.accent;
+    roundRect(ctx, 60 * scale, contentY - buttonHeight/2, buttonWidth, buttonHeight, 24 * scale);
+    ctx.fill();
+
+    // Border
+    ctx.globalAlpha = 0.3;
+    ctx.strokeStyle = theme.accent;
+    ctx.lineWidth = 2 * scale;
+    ctx.stroke();
+
+    // Text
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = theme.accent;
+    ctx.textAlign = 'center';
+    ctx.fillText(cta, 60 * scale + buttonWidth/2, contentY);
+
+    // Download
+    const link = document.createElement('a');
+    link.download = `${size.name}-${Date.now()}.png`;
+    link.href = canvas.toDataURL('image/png', 1.0);
+    link.click();
+
+    // Feedback
+    showExportSuccess();
+}
             ctx.globalAlpha = 1;
             
             // Scale factors for different sizes
@@ -1214,7 +1336,7 @@
             ctx.font = `bold ${48 * scale}px -apple-system, system-ui, sans-serif`;
             ctx.textAlign = 'left';
             ctx.fillStyle = theme.accent;
-            const headlineLines = wrapText(ctx, headline, size.width - 120 * scale);
+            const headlineLines = wrapText(ctx, headline, 60 * scale, size.width - 120 * scale);
             headlineLines.forEach(line => {
                 ctx.fillText(line, 60 * scale, contentY);
                 contentY += 60 * scale;
@@ -1225,7 +1347,7 @@
             // Subheadline
             ctx.font = `${24 * scale}px -apple-system, system-ui, sans-serif`;
             ctx.fillStyle = theme.accentDark;
-            const subheadlineLines = wrapText(ctx, subheadline, size.width - 120 * scale);
+            const subheadlineLines = wrapText(ctx, subheadline, 60 * scale, size.width - 120 * scale);
             subheadlineLines.forEach(line => {
                 ctx.fillText(line, 60 * scale, contentY);
                 contentY += 32 * scale;
@@ -1236,7 +1358,7 @@
             // Caption
             ctx.font = `${20 * scale}px -apple-system, system-ui, sans-serif`;
             ctx.fillStyle = theme.accentDarker;
-            const captionLines = wrapText(ctx, caption, size.width - 120 * scale);
+            const captionLines = wrapText(ctx, caption, 60 * scale, size.width - 120 * scale);
             const maxCaptionLines = 3;
             for (let i = 0; i < Math.min(captionLines.length, maxCaptionLines); i++) {
                 let line = captionLines[i];
@@ -1298,25 +1420,27 @@
             ctx.closePath();
         }
         
-        function wrapText(ctx, text, maxWidth) {
-            const words = text.split(' ');
-            const lines = [];
-            let currentLine = words[0];
-            
-            for (let i = 1; i < words.length; i++) {
-                const word = words[i];
-                const width = ctx.measureText(currentLine + ' ' + word).width;
-                if (width < maxWidth) {
-                    currentLine += ' ' + word;
-                } else {
-                    lines.push(currentLine);
-                    currentLine = word;
-                }
-            }
+        function wrapText(ctx, text, x, maxWidth) {
+    const words = text.split(' ');
+    const lines = [];
+    let currentLine = words[0];
+
+    for (let i = 1; i < words.length; i++) {
+        const word = words[i];
+        const testLine = currentLine + ' ' + word;
+        const testWidth = ctx.measureText(testLine).width;
+
+        if (testWidth < maxWidth) {
+            currentLine = testLine;
+        } else {
             lines.push(currentLine);
-            return lines;
+            currentLine = word;
         }
-        
+    }
+    lines.push(currentLine);
+    return lines;
+}
+
         function showExportSuccess() {
             const btn = document.querySelector('.btn-primary');
             const originalText = btn.innerHTML;
@@ -1346,8 +1470,9 @@
                 }
             };
             
-            // Note: Using in-memory storage instead of localStorage due to Claude.ai limitations
-            console.log('Template saved:', template);
+            const templates = JSON.parse(localStorage.getItem('celestialTemplates') || '[]');
+            templates.push({ ...template, timestamp: Date.now() });
+            localStorage.setItem('celestialTemplates', JSON.stringify(templates));
             
             // Show feedback
             const btn = document.querySelector('.btn-secondary');
